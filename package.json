@@ -2,7 +2,7 @@
   "name": "react-example",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://FarooqM1/github.io/ReactAssignment",
+  "homepage": "http://farooqm1.github.io/ReactAssignment",
   "dependencies": {
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
