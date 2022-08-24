@@ -8,7 +8,8 @@ function App() {
   return (
     <div className="App">
       <header >
-        <BigScreen></BigScreen>
+        {/* <BigScreen></BigScreen> */}
+        <div> Test </div>
       </header>
     </div>
   );
