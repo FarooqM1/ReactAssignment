@@ -37,7 +37,7 @@ export default function StatsView() {
                 <Typography >
                     <div> <ArrowCircleDownIcon></ArrowCircleDownIcon> </div>
                     <div>{api.totalInstall} </div>
-                    <div>App Installed</div>
+                    <div>App Installeds</div>
                 </Typography>
 
             </CardContent>
