@@ -13,11 +13,8 @@ import TableSortLabel from '@mui/material/TableSortLabel';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
-import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
@@ -215,11 +212,7 @@ EnhancedTableToolbar.propTypes = {
 
 export default function EnhancedTable() {
 
-
-  const [api, setApi] = useState([]);
-  const [stat, setStat] = useState({});
   const [loaded, setLoaded] = useState(false);
-
 
   useEffect(() => {
     fetchData();
@@ -231,10 +224,9 @@ export default function EnhancedTable() {
         return response.json()
       })
       .then(function (product) {
-        setApi(product.data)
         console.log(product.data)
         console.log(rows)
-        console.log("Lemght::" + product.data.length)
+        console.log("Length::" + product.data.length)
         product.data.map(item => rows.push(createData(item.created_At, item.totalinstall, item.ios_install, item.android_install, item.totaluninstall, item.ios_uninstall, item.android_uninstall, item.totalchurn, item.ios_churn, item.android_churn)))
         console.log(rows)
         setLoaded(true)
@@ -344,10 +336,6 @@ export default function EnhancedTable() {
                            <Moment format="YYYY-MMM-DD">
                           {row.created_At}
                             </Moment>
-                          
-                          {/* {console.log(<Moment format="YYYY/MM/DD">
-                            1976-04-19T12:59-0500
-                            </Moment>)} */}
                         </TableCell>
 
                         <TableCell style={{color:"white"}} align="right">{row.totalinstall} </TableCell>

@@ -11,8 +11,7 @@ import PanoramaFishEyeIcon from '@mui/icons-material/PanoramaFishEye';
 
 export default function StatsView() {
 
-    const [api, setApi] = useState([]);
-    const [dataLoaded, setDataLoaded] = useState(false);
+    const [statData, setStatData] = useState([]);
 
     useEffect(() => {
         fetchData();
@@ -24,9 +23,8 @@ export default function StatsView() {
                 return response.json()
             })
             .then(function (product) {
-                setApi(product.data)
+                setStatData(product.data)
                 console.log(product.data)
-                setDataLoaded(true)
             })
     }
 
@@ -36,8 +34,8 @@ export default function StatsView() {
 
                 <Typography >
                     <div> <ArrowCircleDownIcon></ArrowCircleDownIcon> </div>
-                    <div>{api.totalInstall} </div>
-                    <div>App Installeds</div>
+                    <div>{statData.totalInstall} </div>
+                    <div>App Installed</div>
                 </Typography>
 
             </CardContent>
@@ -50,7 +48,7 @@ export default function StatsView() {
             <CardContent style={{ backgroundColor: "#283046", color: "white" }}>
                 <Typography>
                     <div> <ErrorIcon></ErrorIcon> </div>
-                    {api.totaluninstall}<br /> App Un-Installed
+                    {statData.totaluninstall}<br /> App Un-Installed
                 </Typography>
 
             </CardContent>
@@ -62,7 +60,7 @@ export default function StatsView() {
             <CardContent style={{ backgroundColor: "#283046", color: "white" }} >
                 <Typography>
                     <div> <PanoramaFishEyeIcon></PanoramaFishEyeIcon> </div>
-                    {api.activeinstall}<br /> Active Installs
+                    {statData.activeinstall}<br /> Active Installs
                 </Typography>
             </CardContent>
         </React.Fragment>
@@ -73,7 +71,7 @@ export default function StatsView() {
             <CardContent style={{ backgroundColor: "#283046", color: "white" }}>
                 <Typography>
                     <div> <PanoramaFishEyeIcon></PanoramaFishEyeIcon> </div>
-                    {api.aliveappusers}<br /> Alive Apps Users
+                    {statData.aliveappusers}<br /> Alive Apps Users
                 </Typography>
             </CardContent>
         </React.Fragment>
@@ -84,7 +82,7 @@ export default function StatsView() {
             <CardContent style={{ backgroundColor: "#283046", color: "white" }}>
                 <Typography >
                     <div> <PanoramaFishEyeIcon></PanoramaFishEyeIcon> </div>
-                    {api.churn}<br /> Churn Rate
+                    {statData.churn}<br /> Churn Rate
                 </Typography>
             </CardContent>
         </React.Fragment>
@@ -95,7 +93,7 @@ export default function StatsView() {
             <CardContent style={{ backgroundColor: "#283046", color: "white" }}>
                 <Typography>
                     <div> <PanoramaFishEyeIcon></PanoramaFishEyeIcon> </div>
-                    {api.alivechurn}<br /> Alive Churn Rate
+                    {statData.alivechurn}<br /> Alive Churn Rate
                 </Typography>
 
             </CardContent>
