@@ -22,6 +22,12 @@ import { useState, useEffect } from "react"
 import AndroidIcon from '@mui/icons-material/Android';
 import AppleIcon from '@mui/icons-material/Apple';
 import Moment from 'react-moment';
+import Grid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
+import { LocalizationProvider } from '@mui/x-date-pickers-pro';
+import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
+import { AdapterDateFns } from '@mui/x-date-pickers-pro/AdapterDateFns';
+import { margin } from '@mui/system';
 
 
 
@@ -33,6 +39,8 @@ function createData(created_At, totalinstall, ios_install, android_install, tota
 }
 
 var rows = [];
+
+var initialData = [];
 
 function descendingComparator(a, b, orderBy) {
 
@@ -116,12 +124,12 @@ function EnhancedTableHead(props) {
   };
 
   return (
-    <TableHead style={{ backgroundColor: "#271C1C"}}>
-      <TableRow> 
+    <TableHead style={{ backgroundColor: "#271C1C" }}>
+      <TableRow>
 
         {headCells.map((headCell) => (
           <TableCell
-            style={{ padding: '10px' ,color:"white"}}
+            style={{ padding: '10px', color: "white" }}
             key={headCell.id}
             align={headCell.numeric ? 'right' : 'left'}
             padding={headCell.disablePadding ? 'none' : 'normal'}
@@ -176,7 +184,7 @@ const EnhancedTableToolbar = (props) => {
           variant="subtitle1"
           component="div"
         >
-          {numSelected} 
+          {numSelected}
         </Typography>
       ) : (
         <Typography
@@ -210,9 +218,16 @@ EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
 
+var [loaded, setLoaded] = new Array;
+
+var [rowsSorted , setRowsSorted] = new Array;
+
 export default function EnhancedTable() {
 
-  const [loaded, setLoaded] = useState(false);
+   [loaded, setLoaded] = useState(false);
+   [rowsSorted , setRowsSorted] = useState(0);
+
+   
 
   useEffect(() => {
     fetchData();
@@ -227,8 +242,11 @@ export default function EnhancedTable() {
         console.log(product.data)
         console.log(rows)
         console.log("Length::" + product.data.length)
-        product.data.map(item => rows.push(createData(item.created_At, item.totalinstall, item.ios_install, item.android_install, item.totaluninstall, item.ios_uninstall, item.android_uninstall, item.totalchurn, item.ios_churn, item.android_churn)))
+        var abss= [];
+        product.data.map(item => abss.push(createData(item.created_At, item.totalinstall, item.ios_install, item.android_install, item.totaluninstall, item.ios_uninstall, item.android_uninstall, item.totalchurn, item.ios_churn, item.android_churn)))
         console.log(rows)
+        rows = abss
+        initialData = abss;
         setLoaded(true)
       })
 
@@ -295,9 +313,29 @@ export default function EnhancedTable() {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
+
+    const[showDate , setShowDate] = useState(false);
+
+    function showDatePicker(){
+     if(showDate){
+        setShowDate(false)
+        rows = initialData
+        setRowsSorted(rowsSorted+1)
+      }else{
+        setShowDate(true)
+      }
+    }
+
   return (
-    loaded ?
-      <Box sx={{ width: '100%' }}>
+    
+   <div >
+     
+    { showDate ? <div > <DateRangeView /> <button onClick={showDatePicker} style={{float:"right",border:'1px solid white',width:"150px",padding:"5px 20px",marginBottom:"10px",backgroundColor:'#283046',color:"white" ,cursor:"pointer"}}> Hide Date Picker </button> </div> :
+     <Grid onClick = {showDatePicker} style={{border:'1px solid white',width:"150px",padding:"5px 20px",marginBottom:"20px",backgroundColor:'#283046',color:"white" ,cursor:"pointer"}}> Select Duration</Grid>
+     }
+     {loaded ?
+     
+      <Box sx={{ width: '100%' }}> 
         <Paper sx={{ width: '100%', mb: 2 }}>
 
           <TableContainer>
@@ -307,10 +345,8 @@ export default function EnhancedTable() {
               aria-labelledby="tableTitle"
               size={dense ? 'small' : 'medium'}
             >
-              <EnhancedTableHead
-
-              />
-              <TableBody style={{backgroundColor:"#283046"}}>
+              <EnhancedTableHead />
+              <TableBody style={{ backgroundColor: "#283046" }}>
 
                 {stableSort(rows, getComparator(order, orderBy))
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
@@ -325,25 +361,24 @@ export default function EnhancedTable() {
                         tabIndex={+1}
                         key={row.name}
                         selected={isItemSelected}
-                        onMouseEnter={() => console.log("true")}
                       >
-                        <TableCell style={{ padding: '10px' ,color:"white"}}
+                        <TableCell style={{ padding: '10px', color: "white" }}
                           component="th"
                           id={labelId}
                           scope="row"
                           padding="none"
                         >
-                           <Moment format="YYYY-MMM-DD">
-                          {row.created_At}
-                            </Moment>
+                          <Moment format="YYYY-MMM-DD">
+                            {row.created_At}
+                          </Moment>
                         </TableCell>
 
-                        <TableCell style={{color:"white"}} align="right">{row.totalinstall} </TableCell>
-                        <TableCell style={{color:"white"}} align="right"><AndroidIcon style={{fontSize:"18px"}} /> {row.ios_install}  <br />  <AppleIcon style={{fontSize:"18px"}}/>  {row.android_install}</TableCell>
-                        <TableCell style={{color:"white"}} align="right">{row.totaluninstall}</TableCell>
-                        <TableCell style={{color:"white"}} align="right"> <AndroidIcon  style={{fontSize:"18px"}}/>{row.adnroid_uninstall} <br /> <AppleIcon style={{fontSize:"18px"}} />{row.ios_uninstall} </TableCell>
-                        <TableCell style={{color:"white"}} align="right">{row.totalchurn}</TableCell>
-                        <TableCell style={{color:"white"}} align="right"> <AndroidIcon  style={{fontSize:"18px"}}/>{row.android_churn} <br /> <AppleIcon style={{fontSize:"18px"}} />{row.ios_churn} </TableCell>
+                        <TableCell style={{ color: "white" }} align="right">{row.totalinstall} </TableCell>
+                        <TableCell style={{ color: "white" }} align="right"><AndroidIcon style={{ fontSize: "18px" }} /> {row.ios_install}  <br />  <AppleIcon style={{ fontSize: "18px" }} />  {row.android_install}</TableCell>
+                        <TableCell style={{ color: "white" }} align="right">{row.totaluninstall}</TableCell>
+                        <TableCell style={{ color: "white" }} align="right"> <AndroidIcon style={{ fontSize: "18px" }} />{row.adnroid_uninstall} <br /> <AppleIcon style={{ fontSize: "18px" }} />{row.ios_uninstall} </TableCell>
+                        <TableCell style={{ color: "white" }} align="right">{row.totalchurn}</TableCell>
+                        <TableCell style={{ color: "white" }} align="right"> <AndroidIcon style={{ fontSize: "18px" }} />{row.android_churn} <br /> <AppleIcon style={{ fontSize: "18px" }} />{row.ios_churn} </TableCell>
                       </TableRow>
                     );
                   })}
@@ -370,6 +405,58 @@ export default function EnhancedTable() {
           />
         </Paper>
 
-      </Box> : <div> </div>
+      </Box> : <div> </div> }
+   </div> 
   );
 }
+
+
+var  [value, setValue] = new Array();
+
+export function DateRangeView() {
+    [value, setValue] = React.useState([null, null]);
+ 
+   return (
+     <LocalizationProvider
+       dateAdapter={AdapterDateFns}
+       localeText={{ start: 'From', end: 'To' }}
+     >
+       <DateRangePicker
+         value={value}
+         onChange={(newValue) => {
+           setValue(newValue);
+           sortRows(newValue)
+         }}
+         renderInput={(startProps, endProps) => (
+           <React.Fragment>
+             <TextField {...startProps} />
+             <Box sx={{ mx: 2 }}> to </Box>
+             <TextField {...endProps} />
+           </React.Fragment>
+         )}
+       />
+     </LocalizationProvider>
+   );
+ }
+
+ function sortRows(newValue){
+  rows = initialData
+  console.log("inside sortRows " +newValue[0]+ " sdfas " + newValue[1])
+ 
+  if(newValue[0] != null && newValue[1] != null){
+    console.log(newValue[0].toLocaleDateString());
+    
+    var abc = rows.filter( row => {
+      console.log(new Date(row.created_At))
+      return new Date(row.created_At) > new Date(newValue[0])  &&  new Date(row.created_At) < new Date(newValue[1]);
+    })
+
+    console.log("filtered rows :  " +rows.length)
+    rows = abc;
+    setRowsSorted(rowsSorted+1)
+    
+    console.log("filtered rowsasdas :  " +rows.length)
+
+  }
+ }
+ 

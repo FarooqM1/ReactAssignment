@@ -1,4 +1,5 @@
 import EnhancedTable from './EnhancedTable';
+import { HomePage } from './HomePage';
 import StatsView from './StatsView';
 
 function App() {
@@ -6,8 +7,8 @@ function App() {
     <div className="App">
       <header >
         {/* <BigScreen></BigScreen> */}
-        <div> <StatsView></StatsView> </div> 
-        <div> <EnhancedTable />  </div>
+       
+        <HomePage></HomePage>
       </header>
     </div>
   );
