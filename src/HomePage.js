@@ -55,6 +55,7 @@ export function HomePage() {
         if (menuShow) {
             setMenuShow(false)
         } else {
+            setDashboardShow(false)
             setMenuShow(true)
         }
 
