@@ -10,7 +10,6 @@ function App() {
        
         <HomePage></HomePage>
       </header>
-      <div> Test</div>
     </div>
   );
 }
