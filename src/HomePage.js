@@ -43,27 +43,15 @@ export function HomePage() {
     const [menuText, setMenuText] = React.useState('');
 
     function dashboardClick() {
-        // if (dashboardShow) {
-        //     setDashboardShow(false)
-        // } else {
-            setDashboardShow(true)
-            //setMenuShow(false)
-       // }
-
-        console.log("testhjsdgjavhgjh")
+        setMenuText('');
+        setDashboardShow(true)
     }
 
     function menuClick(text) {
-        // if (menuShow) {
-        //     setMenuShow(false)
-        // } else {
+        
         console.log("asdasdssdas : "+text);
-           setDashboardShow(false)
-          setMenuText(text);
-            //setMenuShow(true)
-       // }
-
-        console.log("testhjsdgjavhsjgdsjhgjh")
+        setDashboardShow(false)
+        setMenuText(text);
     }
 
     return (
