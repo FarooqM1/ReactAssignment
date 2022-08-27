@@ -39,27 +39,31 @@ const Item = styled(Paper)(({ theme }) => ({
 export function HomePage() {
 
     const [dashboardShow, setDashboardShow] = React.useState(false);
-    const [menuShow, setMenuShow] = React.useState(false);
+    //const [menuShow, setMenuShow] = React.useState(false);
+    const [menuText, setMenuText] = React.useState('');
 
     function dashboardClick() {
-        if (dashboardShow) {
-            setDashboardShow(false)
-        } else {
+        // if (dashboardShow) {
+        //     setDashboardShow(false)
+        // } else {
             setDashboardShow(true)
-        }
+            //setMenuShow(false)
+       // }
 
         console.log("testhjsdgjavhgjh")
     }
 
-    function menuClick() {
-        if (menuShow) {
-            setMenuShow(false)
-        } else {
-            setDashboardShow(false)
-            setMenuShow(true)
-        }
+    function menuClick(text) {
+        // if (menuShow) {
+        //     setMenuShow(false)
+        // } else {
+        console.log("asdasdssdas : "+text);
+           setDashboardShow(false)
+          setMenuText(text);
+            //setMenuShow(true)
+       // }
 
-        console.log("testhjsdgjavhgjh")
+        console.log("testhjsdgjavhsjgdsjhgjh")
     }
 
     return (
@@ -83,49 +87,49 @@ export function HomePage() {
                                         <ListItemText >Dashboard</ListItemText>
                                     </ListItemIcon>
                                 </MenuItem>
-                                <MenuItem onClick={menuClick}>
+                                <MenuItem onClick={() => menuClick("WOW Users")}>
                                     <ListItemIcon style={{ color: "white" }}>
                                         <PersonSharpIcon fontSize="small" />
                                         <ListItemText>WOW Users</ListItemText>
                                     </ListItemIcon>
                                 </MenuItem>
-                                <MenuItem onClick={menuClick}>
+                                <MenuItem onClick={() => menuClick("Video Clips")}>
                                     <ListItemIcon style={{ color: "white" }}>
                                         <PlayCircleIcon fontSize="small" />
                                         <ListItemText>VideoClips</ListItemText>
                                     </ListItemIcon>
                                 </MenuItem>
-                                <MenuItem onClick={menuClick}>
+                                <MenuItem onClick={() => menuClick("Reported Content")}>
                                     <ListItemIcon style={{ color: "white" }}>
                                         <ContentPasteIcon fontSize="small" />
                                         <ListItemText>Reported Content</ListItemText>
                                     </ListItemIcon>
                                 </MenuItem>
-                                <MenuItem onClick={menuClick}>
+                                <MenuItem onClick={() => menuClick("Category")}>
                                     <ListItemIcon style={{ color: "white" }}>
                                         <CategoryIcon fontSize="small" />
                                         <ListItemText>Category</ListItemText>
                                     </ListItemIcon>
                                 </MenuItem>
-                                <MenuItem onClick={menuClick}>
+                                <MenuItem onClick={() => menuClick("Info Page")}>
                                     <ListItemIcon style={{ color: "white" }}>
                                         <InfoIcon fontSize="small" />
                                         <ListItemText>Info Page</ListItemText>
                                     </ListItemIcon>
                                 </MenuItem>
-                                <MenuItem onClick={menuClick}>
+                                <MenuItem onClick={() => menuClick("FAQ")}>
                                     <ListItemIcon style={{ color: "white" }}>
                                         <LiveHelpIcon fontSize="small" />
                                         <ListItemText>FAQ</ListItemText>
                                     </ListItemIcon>
                                 </MenuItem>
-                                <MenuItem onClick={menuClick}>
+                                <MenuItem onClick={() => menuClick("Push Notification")}>
                                     <ListItemIcon style={{ color: "white" }}>
                                         <CircleNotificationsIcon fontSize="small" />
                                         <ListItemText>Push Notification</ListItemText>
                                     </ListItemIcon>
                                 </MenuItem>
-                                <MenuItem onClick={menuClick}>
+                                <MenuItem onClick={() => menuClick("Internal User")}>
                                     <ListItemIcon style={{ color: "white" }}>
                                         <LaunchIcon fontSize="small" />
                                         <ListItemText>Internal User</ListItemText>
@@ -144,8 +148,8 @@ export function HomePage() {
                     </Grid> : <div> </div>
                 }
                 {
-                    menuShow ? <Grid item xs={8}>
-                        This is still under development Please click on Dashboard
+                    menuText !==null && menuText !== '' ? <Grid item xs={8}>
+                       The page { <b> {menuText} </b>} is still under development , Please click on dashboard
                     </Grid> : <div> </div>
                 }
 
