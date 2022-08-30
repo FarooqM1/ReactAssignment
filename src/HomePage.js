@@ -58,8 +58,8 @@ export function HomePage() {
 
         <Box
             sx={{
-                width: '100%',
-                height: '100%',
+                width: '1200px',
+                height: '1100px',
 
             }}
         > <Grid container spacing={2}>

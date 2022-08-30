@@ -243,7 +243,7 @@ export default function EnhancedTable() {
         console.log(rows)
         console.log("Length::" + product.data.length)
         var abss= [];
-        product.data.map(item => abss.push(createData(item.created_At, item.totalinstall, item.ios_install, item.android_install, item.totaluninstall, item.ios_uninstall, item.android_uninstall, item.totalchurn, item.ios_churn, item.android_churn)))
+        product.data.data.map(item => abss.push(createData(item.created_At, item.totalinstall, item.ios_install, item.android_install, item.totaluninstall, item.ios_uninstall, item.android_uninstall, item.totalchurn, item.ios_churn, item.android_churn)))
         console.log(rows)
         rows = abss
         initialData = abss;

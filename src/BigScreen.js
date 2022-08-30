@@ -1,7 +1,7 @@
 import React from 'react'
 import './App.css';
 import EnhancedTable from './EnhancedTable';
-import { HeaderDiv } from './HeaderDiv';
+//import { HeaderDiv } from './HeaderDiv';
 import StatsView from './StatsView';
 
 
